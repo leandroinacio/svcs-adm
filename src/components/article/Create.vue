@@ -39,7 +39,6 @@
         ></v-checkbox>
 
         <v-btn @click="submit">submit</v-btn>
-        <v-btn @click="clear">clear</v-btn>
       </form>
     </v-flex>
   </v-layout>
