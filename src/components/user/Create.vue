@@ -1,45 +1,66 @@
 <template>
   <v-layout row justify-center>
-    <v-flex xs6>
+    <v-flex xs10>
       <form>
-        <v-text-field
-          v-model="name"
-          label="Name"
-          :counter="10"
+
+        <!-- Basic fields -->
+        <v-text-field box
+          v-model="user.name"
+          label="Nome Completo"
           data-vv-name="name"
           required
         ></v-text-field>
-        <v-text-field
-          v-model="email"
+        <v-text-field box
+          v-model="user.title"
+          label="Titulo"
+          data-vv-name="title"
+          required
+        ></v-text-field>
+        <v-text-field box
+          v-model="user.email"
           label="E-mail"
           data-vv-name="email"
           required
         ></v-text-field>
+        <v-select box
+          :items="roles"
+          v-model="user.role"
+          label="Nivel Administrativo"
+          data-vv-name="role"
+          required
+        ></v-select>
+        <v-checkbox
+          v-model="user.isActive"
+          value="1"
+          label="Ativo?"
+          data-vv-name="checkbox"
+          type="checkbox"
+        ></v-checkbox>
+
+        <!-- Password fields -->
+        <v-spacer></v-spacer>
+        <v-divider></v-divider>
+        <v-spacer></v-spacer>
+
         <v-text-field
-          v-model="password"
+          v-model="user.password"
           label="Password"
           data-vv-name="password"
           type="password"
           required
         ></v-text-field>
-        <v-select
-          :items="items"
-          v-model="select"
-          label="Select"
-          data-vv-name="select"
+        <v-text-field
+          v-model="retype"
+          label="Retype Password"
+          data-vv-name="retype"
+          type="password"
           required
-        ></v-select>
-        <v-checkbox
-          v-model="checkbox"
-          value="1"
-          label="Option"
-          data-vv-name="checkbox"
-          type="checkbox"
-          required
-        ></v-checkbox>
+        ></v-text-field>
+        <v-alert :type="confirmationType" :value="true">
+          {{confirmationMsg}}
+        </v-alert>
 
-        <v-btn @click="submit">submit</v-btn>
-        <v-btn @click="clear">clear</v-btn>
+        <v-btn color="success" @click="createUser">submit</v-btn>
       </form>
     </v-flex>
   </v-layout>
@@ -50,7 +71,38 @@ export default {
   name: 'CreateUser',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      user: {},
+      retype: '',
+      roles: ['Admin', 'User'],
+      confirmationType: 'warning',
+      confirmationMsg: 'Digite sua senha e confirme.'
+    }
+  },
+  watch: {
+    'user.password' () {
+      this.checkConfirmation()
+    },
+    retype () {
+      this.checkConfirmation()
+    }
+  },
+  methods: {
+    createUser () {
+      console.log(this.user)
+    },
+    checkConfirmation () {
+      this.confirmationType = 'warning'
+      this.confirmationMsg = 'Digite sua senha e confirme.'
+
+      if (this.user.password) {
+        if (this.user.password === this.retype) {
+          this.confirmationType = 'success'
+          this.confirmationMsg = 'Confirmacao de senha aceita.'
+        } else {
+          this.confirmationType = 'error'
+          this.confirmationMsg = 'Confirmacao de senha invalida.'
+        }
+      }
     }
   }
 }

@@ -1,44 +1,39 @@
 <template>
   <v-layout row justify-center>
-    <v-flex xs6>
+    <v-flex xs10>
       <form>
         <v-text-field
-          v-model="name"
-          label="Name"
-          :counter="10"
+          v-model="article.name"
+          label="Nome"
           data-vv-name="name"
           required
         ></v-text-field>
+
+        <!-- Description -->
         <v-text-field
-          v-model="email"
-          label="E-mail"
-          data-vv-name="email"
-          required
+          name="input-7-3"
+          label="Texto"
+          v-model="article.value"
+          multi-line
         ></v-text-field>
-        <v-text-field
-          v-model="password"
-          label="Password"
-          data-vv-name="password"
-          type="password"
-          required
-        ></v-text-field>
+        
         <v-select
-          :items="items"
-          v-model="select"
-          label="Select"
-          data-vv-name="select"
+          :items="types"
+          v-model="article.type"
+          label="Tipo"
+          data-vv-name="contato"
           required
         ></v-select>
+
         <v-checkbox
-          v-model="checkbox"
+          v-model="article.isActive"
           value="1"
-          label="Option"
-          data-vv-name="checkbox"
+          label="Ativo?"
+          data-vv-name="isActive"
           type="checkbox"
-          required
         ></v-checkbox>
 
-        <v-btn @click="submit">submit</v-btn>
+        <v-btn color='success' @click="createArticle">submit</v-btn>
       </form>
     </v-flex>
   </v-layout>
@@ -49,7 +44,13 @@ export default {
   name: 'CreateUser',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      article: {},
+      types: ['Contact', 'Article', 'News']
+    }
+  },
+  methods: {
+    createArticle () {
+      console.log(this.article)
     }
   }
 }

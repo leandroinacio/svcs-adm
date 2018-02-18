@@ -1,10 +1,6 @@
 <template>
-  <v-container fluid>
-
-    <main-menu></main-menu> 
-
-    <v-btn color="success">Novo Usuario</v-btn>
-
+  <v-flex xs12>
+    <router-link :to="'/article/create'" class="btn success" tag="v-btn">Novo Artigo</router-link>
     <v-data-table
       :headers="headers"
       :items="items"
@@ -19,16 +15,15 @@
         <td class="text-xs-right">{{ props.item.protein }}</td>
         <td class="justify-center layout px-0">
           <v-btn icon class="mx-0" @click="editItem(props.item)">
-            <v-icon color="teal">edit</v-icon>
+            <v-icon color="blue">edit</v-icon>
           </v-btn>
           <v-btn icon class="mx-0" @click="deleteItem(props.item)">
-            <v-icon color="pink">delete</v-icon>
+            <v-icon color="red">delete</v-icon>
           </v-btn>
         </td>
       </template>
     </v-data-table>
-
-  </v-container>
+  </v-flex>
 </template>
 
 <script>

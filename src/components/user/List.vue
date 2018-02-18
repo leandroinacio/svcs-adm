@@ -1,42 +1,31 @@
 <template>
-  <v-container fluid>
-    
-    <v-layout row justify-start>
+  <v-flex xs12>
+    <router-link :to="'/user/create'" class="btn success" tag="v-btn">Novo Usuario</router-link>
 
-      <v-flex xs3>
-        <main-menu></main-menu> 
-      </v-flex>
+    <v-data-table
+      :headers="headers"
+      :items="items"
+      hide-actions
+      class="elevation-1">
 
-      <v-flex xs8>
-        <v-btn color="success">Novo Usuario</v-btn>
+      <template slot="items" slot-scope="props">
+        <td>{{ props.item.name }}</td>
+        <td class="text-xs-right">{{ props.item.calories }}</td>
+        <td class="text-xs-right">{{ props.item.fat }}</td>
+        <td class="text-xs-right">{{ props.item.carbs }}</td>
+        <td class="text-xs-right">{{ props.item.protein }}</td>
+        <td class="justify-center layout px-0">
+          <v-btn icon class="mx-0" @click="editItem(props.item)">
+            <v-icon color="blue">edit</v-icon>
+          </v-btn>
+          <v-btn icon class="mx-0" @click="deleteItem(props.item)">
+            <v-icon color="red">delete</v-icon>
+          </v-btn>
+        </td>
+      </template>
+    </v-data-table>
 
-        <v-data-table
-          :headers="headers"
-          :items="items"
-          hide-actions
-          class="elevation-1">
-
-          <template slot="items" slot-scope="props">
-            <td>{{ props.item.name }}</td>
-            <td class="text-xs-right">{{ props.item.calories }}</td>
-            <td class="text-xs-right">{{ props.item.fat }}</td>
-            <td class="text-xs-right">{{ props.item.carbs }}</td>
-            <td class="text-xs-right">{{ props.item.protein }}</td>
-            <td class="justify-center layout px-0">
-              <v-btn icon class="mx-0" @click="editItem(props.item)">
-                <v-icon color="blue">edit</v-icon>
-              </v-btn>
-              <v-btn icon class="mx-0" @click="deleteItem(props.item)">
-                <v-icon color="red">delete</v-icon>
-              </v-btn>
-            </td>
-          </template>
-        </v-data-table>
-
-      </v-flex>
-    </v-layout> 
-
-  </v-container>
+  </v-flex>
 </template>
 
 <script>

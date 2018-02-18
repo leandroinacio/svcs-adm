@@ -5,7 +5,7 @@
       <!-- Username -->
       <v-layout row justify-center>
         <v-flex xs6>
-          <v-text-field
+          <v-text-field box
             label="Name"
             v-model="user.name"
             required
@@ -16,7 +16,7 @@
       <!-- Password -->
       <v-layout row justify-center>
         <v-flex xs6>
-          <v-text-field
+          <v-text-field box
             label="Password"
             v-model="user.password"
             type="password"
