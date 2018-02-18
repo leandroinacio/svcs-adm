@@ -13,7 +13,6 @@ Vue.use(Vuetify)
 
 // Setup axiox
 axios.defaults.baseURL = 'http://localhost:8080/lawyer-0.0.1-SNAPSHOT/'
-// axios.defaults.headers.common['Authorization'] = ''
 
 Vue.config.productionTip = false
 

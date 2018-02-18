@@ -7,7 +7,7 @@
         <v-flex xs6>
           <v-text-field box
             label="Name"
-            v-model="user.name"
+            v-model="username"
             required
           ></v-text-field>
         </v-flex>
@@ -18,7 +18,7 @@
         <v-flex xs6>
           <v-text-field box
             label="Password"
-            v-model="user.password"
+            v-model="password"
             type="password"
             required
           ></v-text-field>
@@ -28,7 +28,7 @@
       <!-- Login button -->
       <v-layout row justify-center>
         <v-flex xs6>
-          <v-btn color="info">Login</v-btn>
+          <v-btn color="info" @click="submitForm">Login</v-btn>
         </v-flex>
       </v-layout>
 
@@ -37,29 +37,27 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Properties from '@/config/Properties'
+import { login } from '@/service/Security'
+import User from '@/model/security/User'
+import Auth from '@/store/Auth'
 
 export default {
   name: 'Login',
   data: function () {
     return {
-      user: {},
+      username: '',
+      password: '',
       form: null
     }
   },
   methods: {
-    login: function () {
+    submitForm () {
       let self = this
-
-      axios.post(Properties.API.LOCATION + Properties.API.LOGIN, this.user)
-        .then(function (response) {
-          localStorage.setItem(response, Properties.API.AUTHENTICATION)
-          self.$router.push({ name: 'ListUser' })
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+      let user = new User(this.username, this.password)
+      login(user).then(response => {
+        Auth.commit('authenticate', response)
+        self.$router.push({ name: 'MainMenu' })
+      })
     }
   }
 }
